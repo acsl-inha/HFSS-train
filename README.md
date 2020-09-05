@@ -56,10 +56,10 @@ feature을 log와 square을 사용한 경우.
 학습 결과는 다음과 같다. x축은 기존의 feature, y축은 target data(HFSS)이다.
 
 ### log, unnormalized, epoch 0.1m
-![img](./img/log_nonnorm.JPG)
+![img](./img/log_nonnorm.JPG=100x)
 ### log, normalized, epoch 0.1m
-![img](./img/log0.1.JPG)
+![img](./img/log0.1.JPG=100x)
 ### log, square, normalized, epoch 0.1m
-![img](./img/log_pow_0.1.JPG)
+![img](./img/log_pow_0.1.JPG=100x)
 ### log, square, normalized, epoch 1m
-![img](./img/log_po_1.JPG)
+![img](./img/log_po_1.JPG=100x)
