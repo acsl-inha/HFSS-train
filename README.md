@@ -46,5 +46,20 @@ total_dat.to_csv("preprocessed_data.csv",
 ```
 ## 구현할 regression model
 여기서 HFSS를 추정하는 모델을 다음과 같이 설정하였다.
+feature을 log만 사용한 경우.
+![img](./img/log.JPG)
 
+feature을 log와 square을 사용한 경우.
+![img](./img/log_po.JPG)
 
+## 결과
+학습 결과는 다음과 같다. x축은 기존의 feature, y축은 target data(HFSS)이다.
+
+### log, unnormalized, epoch 0.1m
+![img](./img/log_nonnorm.JPG)
+### log, normalized, epoch 0.1m
+![img](./img/log0.1.JPG)
+### log, square, normalized, epoch 0.1m
+![img](./img/log_pow_0.1.JPG)
+### log, square, normalized, epoch 1m
+![img](./img/log_po_1.JPG)
