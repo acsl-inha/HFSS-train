@@ -77,3 +77,26 @@ pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. �
 
 ### Decision variables
 <img src="./res_img/factor.JPG" width="40%">
+
+## Analytic과 비교
+최종적으로 설계한 모델로 하여금 Analytic으로 다시 학습시켜 HFSS와의 정확도를 비교하였다.
+
+먼저 초기 Analytic 학습 결과 3개의 outliers가 발견되었다.
+
+### Result of training with Analytic data
+<img src="./res_img/an.JPG" width="40%">
+
+### Outliers of Analytic data
+<img src="./res_img/an_OL.JPG" width="40%">
+
+이를 제거하고 또다시 학습시킨 결과는 다음과 같다.
+
+### Result after reject outliers
+<img src="./res_img/an_refOL.JPG" width="40%">
+어째서인지, outliers를 제거하기 전보다 Error rate가 증가하였지만, 앞선 경우가 overfitting이 되어있지 않았나 추측한다.
+
+최종 결과를 HFSS와 비교하였다.
+
+### Result compared with HFSS
+<img src="./res_img/an_comp.JPG" width="40%">
+
