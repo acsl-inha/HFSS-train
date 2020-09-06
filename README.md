@@ -92,7 +92,7 @@ pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. �
 이를 제거하고 또다시 학습시킨 결과는 다음과 같다.
 
 ### Result after reject outliers
-<img src="./res_img/an_refOL.JPG" width="40%">
+<img src="./res_img/an_rejOL.JPG" width="40%">
 어째서인지, outliers를 제거하기 전보다 Error rate가 증가하였지만, 앞선 경우가 overfitting이 되어있지 않았나 추측한다.
 
 최종 결과를 HFSS와 비교하였다.
