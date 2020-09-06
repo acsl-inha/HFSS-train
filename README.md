@@ -23,7 +23,7 @@
 
 여기서 우린 target value와 prediction value의 오차를 줄이기 위해 다음과 같은 Objective function을 최소화 해야 한다.
 ### Objective function
-<img src="./res_img/OF.JPG" width="40%">
+<img src="./res_img/OF.JPG" width="25%">
 
 ## 구현 결과
 각각의 모델에 대한 수렴 결과는 다음과 같다.
@@ -61,4 +61,19 @@
 <img src="./res_img/sparse_OF.JPG" width="40%">
 
 ## 결과
-pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. 이는 아마 Gradient descent을 사용하는 수렴 방식에 의해 cardinality가 원하는 방향으로 진행되지 않는다고 판단하였다. 혹시 regularizer로 l2 norm을 사용하거나, first order feature을 추가시키면 결과가 달라질까 하여 실험해 보았는데, 여전히 원하는 결과가 도출되지 않았다. 따라서 Regularizer을 이용한 결과는 직접 gamma 값을 조정하며 수렴시켰고, 
+pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. 이는 아마 Gradient descent을 사용하는 수렴 방식에 의해 cardinality가 원하는 방향으로 진행되지 않는다고 판단하였다. 혹시 regularizer로 l2 norm을 사용하거나, first order feature을 추가시키면 결과가 달라질까 하여 실험해 보았는데, 여전히 원하는 결과가 도출되지 않았다. 따라서 Regularizer을 이용한 결과는 직접 gamma 값을 조정하며 수렴시켰고, 결과적으로 0.001 값을 주었을때 이상적으로 수렴함을 확인하였다.
+
+### Cardinality for gamma (Lasso_GD)
+<img src="./res_img/lasso_gd.JPG" width="40%">
+
+### Cardinality for gamma (Lasso_GD with first order feature)
+<img src="./res_img/lasso_gd_x1.JPG" width="40%">
+
+### Cardinality for gamma (Ridge_GD)
+<img src="./res_img/ridge_gd.JPG" width="40%">
+
+### Result after regularization(gamma = 0.001)
+<img src="./res_img/sparse_OF.JPG" width="40%">
+
+### Decision variables
+<img src="./res_img/factor.JPG" width="40%">
