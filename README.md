@@ -14,15 +14,20 @@
 <img src="./res_img/mod1.JPG" width="40%">
 
 ### (log + first order + second order) model
-<img src="./res_img/mod2.JPG" width="40%">
+<img src="./res_img/mod2.JPG" width="50%">
 
 각 모델의 변수는 다음을 의미한다.
 
 ### Notation
 <img src="./res_img/variables.JPG" width="40%">
 
+여기서 우린 target value와 prediction value의 오차를 줄이기 위해 다음과 같은 Objective function을 최소화 해야 한다.
+### Objective function
+<img src="./res_img/OF.JPG" width="40%">
+
 ## 구현 결과
 각각의 모델에 대한 수렴 결과는 다음과 같다.
+
 ### (log) model result
 <img src="./res_img/log_err.JPG" width="40%">
 
@@ -46,4 +51,14 @@
 ## Normalize 방법 수정
 이전까지는 normalize 방법을 standardize 방법을 채택했었는데, 이 방법은 변수 표본마다의 표준편차와 평균값이 달라질 수 있어 기존값을 복원하는데에 신뢰도가 떨어진다. 따라서 이를 대체하기 위해 단지 각 표본들을 Maximum 값으로 나누어 scaling을 진행하였다. scaling 후의 결과는 기존의 standardize보다 낮은 Error rate를 보였다.
 
-<img src="./res_img/log_norm_err.JPG" width="40%">
+### Result after scaling input features
+<img src="./res_img/log_scale_err.JPG" width="40%">
+
+## Regularizer 추가
+여기서 필요없는 feature을 제외하여 모델을 간소화 하고, overfit을 줄이기 위해 Regularizer을 추가하였다. Regularizer은 l1 norm을 사용하였다(Lasso regression).
+
+### Objective function of Lasso regression
+<img src="./res_img/sparse_OF.JPG" width="40%">
+
+## 결과
+pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. 이는 아마 Gradient descent을 사용하는 수렴 방식에 의해 cardinality가 원하는 방향으로 진행되지 않는다고 판단하였다. 혹시 regularizer로 l2 norm을 사용하거나, first order feature을 추가시키면 결과가 달라질까 하여 실험해 보았는데, 여전히 원하는 결과가 도출되지 않았다. 따라서 Regularizer을 이용한 결과는 직접 gamma 값을 조정하며 수렴시켰고, 
