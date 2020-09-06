@@ -4,66 +4,46 @@
 주어진 table.xlsx의 데이터는 # of turns, permitivity(surface), LS/LW, SEP, permitivity(subsidence), OD, HFSS 로 이루어져있다.
 이에 HFSS 이외의 6개의 feature로 HFSS를 표현하는 모델을 구축하고자 한다.
 
-## Data preprocessing
-주어진 table.xlsx의 데이터는 아래 그림과 같이 동일한 앞부분 feature에 대해 다른 뒤따라 오는 feature들이 표현되어 있는데, 이때 각각의 값으로 주어진 것이 아닌 큰 묶음 형식으로 표현되어 있다.
-![img](./img/example.JPG)
+## 모델 구현
+총 세가지 모델을 규정했으며, 각 모델은 다음을 가정한다.
 
-또한 필요한 데이터 이외에도 Analytic과 Fomula라는 column이 있어 이들을 제외하고 데이터를 생성해야 한다. 이에 따른 데이터 preprocessing 코드는 다음과 같다.
+### (log) model
+<img src="./res_img/mod0.JPG" width="35%">
 
-```python
-import pandas as pd
-import numpy as np
+### (log + first order) model
+<img src="./res_img/mod1.JPG" width="40%">
 
-def data_restore(dat):
-    for col_name in dat.columns[:5]:
-        temp=0
-        for i in range(len(dat[col_name])):
-            if (dat.loc[i,col_name]!=0):
-                temp=dat.loc[i,col_name]
-            if (dat.loc[i,col_name]==0):
-                dat.loc[i,col_name]=temp
-    return dat
+### (log + first order + second order) model
+<img src="./res_img/mod2.JPG" width="40%">
 
-xls_data=pd.read_excel("./table.xlsx")
-t2_dat=xls_data.loc[:,"# of turns":"HFSS"]
-t3_dat=xls_data.loc[:,"# of turns.1":"HFSS.1"]
-t4_dat=xls_data.loc[:,"# of turns.2":"HFSS.2"]
-t2_dat=t2_dat.replace(np.nan,0)
-t3_dat=t3_dat.replace(np.nan,0)
-t4_dat=t4_dat.replace(np.nan,0)
+각 모델의 변수는 다음을 의미한다.
 
-t2_dat=data_restore(t2_dat)
-t3_dat=data_restore(t3_dat)
-t4_dat=data_restore(t4_dat)
+### Notation
+<img src="./res_img/variables.JPG" width="40%">
 
-del_index=np.where(total_dat_temp[:,6]==0)[0]
-total_dat_temp=np.vstack([t2_dat.values,t3_dat.values,t4_dat.values])
-total_dat_temp=pd.DataFrame(total_dat_temp,columns=t2_dat.columns)
-total_dat=total_dat_temp.drop(del_index)
+## 구현 결과
+각각의 모델에 대한 수렴 결과는 다음과 같다.
+### (log) model result
+<img src="./res_img/log_err.JPG" width="40%">
 
-total_dat.to_csv("preprocessed_data.csv",
-                 columns=total_dat.columns,sep=",", index=False)
-```
-## 구현할 regression model
-여기서 HFSS를 추정하는 모델을 다음과 같이 설정하였다.
-feature을 log만 사용한 경우.
-![img](./img/log.JPG)
+### (log + first order) model result
+<img src="./res_img/log_x1_err.JPG" width="40%">
 
-feature을 log와 square을 사용한 경우.
-![img](./img/log_po.JPG)
+### (log + first order + second order) model result
+<img src="./res_img/log_x2_err.JPG" width="40%">
 
-## 결과
-학습 결과는 다음과 같다. x축은 기존의 feature, y축은 target data(HFSS)이다.
+더 복잡한 구조의 모델이 Error rate가 감소함을 확인하였으나, 그 크기가 크지 않아, 이후 log만을 사용한 모델로 축소시켜 실험하였다.
 
-### log, unnormalized, epoch 0.1m
-<img src="./img/log_nonnorm.JPG" width="40%">
+## Outlier의 제거
+여기서  한 점이 outlier로 발생하였다. 해당 값을 찾아보니 다음과 같았고, 이 값을 제외하고 다시 수렴시킨 결과 Error rate가 감소하였다.
 
-### log, normalized, epoch 0.1m
-<img src="./img/log0.1.JPG" width="40%">
+### Value of outlier
+<img src="./res_img/outlier.JPG" width="40%">
 
-### log, square, normalized, epoch 0.1m
-<img src="./img/log_pow_0.1.JPG" width="40%">
+### Result after reject outlier
+<img src="./res_img/log_norm_err.JPG" width="40%">
 
-### log, square, normalized, epoch 1m
-<img src="./img/log_po_1.JPG" width="40%">
+## Normalize 방법 수정
+이전까지는 normalize 방법을 standardize 방법을 채택했었는데, 이 방법은 변수 표본마다의 표준편차와 평균값이 달라질 수 있어 기존값을 복원하는데에 신뢰도가 떨어진다. 따라서 이를 대체하기 위해 단지 각 표본들을 Maximum 값으로 나누어 scaling을 진행하였다. scaling 후의 결과는 기존의 standardize보다 낮은 Error rate를 보였다.
 
+<img src="./res_img/log_norm_err.JPG" width="40%">
