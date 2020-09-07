@@ -87,7 +87,6 @@
 
 ### Result after reject outliers
 <img src="./res_img/anrej_res.JPG" width="40%">
-어째서인지, outliers를 제거하기 전보다 Error rate가 증가하였지만, 앞선 경우가 overfitting이 되어있지 않았나 추측한다.
 
 최종 결과를 HFSS와 비교하였다.
 
