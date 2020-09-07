@@ -91,5 +91,18 @@
 최종 결과를 HFSS와 비교하였다.
 
 ### Result compared with HFSS
-<img src="./res_img/comp_res.JPG" width="40%">
+<img src="./res_img/comp_hotfix.JPG" width="40%">
 
+## Evaluation
+주어진 evaluation 데이터를 활용하여 evaluate 해본 결과는 다음과 같다.
+
+### Result of evaluating model
+<img src="./res_img/test_res.JPG" width="40%">
+
+이때 각 Decision variables은 다음과 같고, 이를 수식에 그대로 적용하여 다시 실험해 보았다.
+
+### Decision variables
+<img src="./res_img/fin_res.JPG" width="40%">
+
+### Result of model
+<img src="./res_img/fin_res_graph.JPG" width="40%">
