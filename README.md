@@ -29,30 +29,30 @@
 각각의 모델에 대한 수렴 결과는 다음과 같다.
 
 ### (log) model result
-<img src="./res_img/log_err.JPG" width="40%">
+<img src="./res_img/logerr_new.JPG" width="40%">
 
 ### (log + first order) model result
-<img src="./res_img/log_x1_err.JPG" width="40%">
+<img src="./res_img/x1err_new.JPG" width="40%">
 
 ### (log + first order + second order) model result
-<img src="./res_img/log_x2_err.JPG" width="40%">
+<img src="./res_img/x2err_new.JPG" width="40%">
 
-더 복잡한 구조의 모델이 Error rate가 감소함을 확인하였으나, 그 크기가 크지 않아, 이후 log만을 사용한 모델로 축소시켜 실험하였다.
+더 복잡한 구조의 모델이 MSE가 감소함을 확인하였으나, 그 크기가 크지 않아, 이후 log만을 사용한 모델로 축소시켜 실험하였다.
 
 ## Outlier의 제거
-여기서  한 점이 outlier로 발생하였다. 해당 값을 찾아보니 다음과 같았고, 이 값을 제외하고 다시 수렴시킨 결과 Error rate가 감소하였다.
+여기서  한 점이 outlier로 발생하였다. 해당 값을 찾아보니 다음과 같았고, 이 값을 제외하고 다시 수렴시킨 결과 MSE가 감소하였다.
 
 ### Value of outlier
 <img src="./res_img/outlier.JPG" width="40%">
 
 ### Result after reject outlier
-<img src="./res_img/log_norm_err.JPG" width="40%">
+<img src="./res_img/rejol_new.JPG" width="40%">
 
 ## Normalize 방법 수정
-이전까지는 normalize 방법을 standardize 방법을 채택했었는데, 이 방법은 변수 표본마다의 표준편차와 평균값이 달라질 수 있어 기존값을 복원하는데에 신뢰도가 떨어진다. 따라서 이를 대체하기 위해 단지 각 표본들을 Maximum 값으로 나누어 scaling을 진행하였다. scaling 후의 결과는 기존의 standardize보다 낮은 Error rate를 보였다.
+이전까지는 normalize 방법을 standardize 방법을 채택했었는데, 이 방법은 변수 표본마다의 표준편차와 평균값이 달라질 수 있어 기존값을 복원하는데에 신뢰도가 떨어진다. 따라서 이를 대체하기 위해 단지 각 표본들을 Maximum 값으로 나누어 scaling을 진행하였다. Scaling 후의 결과는 기존의 standardize보다는 높은 MSE를 보였다. Scaling 이후에는 복잡한 과정 없이 기존값을 복원할 수 있어, percentage error를 추가적으로 표기하였다 
 
 ### Result after scaling input features
-<img src="./res_img/log_scale_err.JPG" width="40%">
+<img src="./res_img/scaled_err_re.JPG" width="40%">
 
 ## Regularizer 추가
 여기서 필요없는 feature을 제외하여 모델을 간소화 하고, overfit을 줄이기 위해 Regularizer을 추가하였다. Regularizer은 l1 norm을 사용하였다(Lasso regression).
