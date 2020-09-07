@@ -61,22 +61,16 @@
 <img src="./res_img/sparse_OF.JPG" width="40%">
 
 ## 결과
-pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. 이는 아마 Gradient descent을 사용하는 수렴 방식에 의해 cardinality가 원하는 방향으로 진행되지 않는다고 판단하였다. 혹시 regularizer로 l2 norm을 사용하거나, first order feature을 추가시키면 결과가 달라질까 하여 실험해 보았는데, 여전히 원하는 결과가 도출되지 않았다. 따라서 Regularizer을 이용한 결과는 직접 gamma 값을 조정하며 수렴시켰고, 결과적으로 0.001 값을 주었을때 이상적으로 수렴함을 확인하였다.
+결과를 보면,  feature 갯수 자체를 작게 사용해서 그런지, MSE가 낮게 나오려면, 6개의 feature을 모두 사용해야 했다. 따라서 Regularizer을 이용한 결과는 직접 gamma 값을 조정하며 수렴시켰고, 결과적으로 0.001 값을 주었을때 이상적으로 수렴함을 확인하였다.
 
 ### Cardinality for gamma (Lasso_GD)
-<img src="./res_img/lasso_gd.JPG" width="40%">
-
-### Cardinality for gamma (Lasso_GD with first order feature)
-<img src="./res_img/lasso_gd_x1.JPG" width="40%">
-
-### Cardinality for gamma (Ridge_GD)
-<img src="./res_img/ridge_gd.JPG" width="40%">
+<img src="./res_img/lasso_new.JPG" width="40%">
 
 ### Result after regularization(gamma = 0.001)
-<img src="./res_img/sparse_OF.JPG" width="40%">
+<img src="./res_img/lasso_err_new.JPG" width="40%">
 
 ### Decision variables
-<img src="./res_img/factor.JPG" width="40%">
+<img src="./res_img/Dev.JPG" width="40%">
 
 ## Analytic과 비교
 최종적으로 설계한 모델로 하여금 Analytic으로 다시 학습시켜 HFSS와의 정확도를 비교하였다.
@@ -84,7 +78,7 @@ pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. �
 먼저 초기 Analytic 학습 결과 3개의 outliers가 발견되었다.
 
 ### Result of training with Analytic data
-<img src="./res_img/an.JPG" width="40%">
+<img src="./res_img/annonrej_res.JPG" width="40%">
 
 ### Outliers of Analytic data
 <img src="./res_img/an_OL.JPG" width="40%">
@@ -92,11 +86,11 @@ pytorch를 사용한 결과로는 Regularizer를 적용시키기 어려웠다. �
 이를 제거하고 또다시 학습시킨 결과는 다음과 같다.
 
 ### Result after reject outliers
-<img src="./res_img/an_rejOL.JPG" width="40%">
+<img src="./res_img/anrej_res.JPG" width="40%">
 어째서인지, outliers를 제거하기 전보다 Error rate가 증가하였지만, 앞선 경우가 overfitting이 되어있지 않았나 추측한다.
 
 최종 결과를 HFSS와 비교하였다.
 
 ### Result compared with HFSS
-<img src="./res_img/an_comp.JPG" width="40%">
+<img src="./res_img/comp_res.JPG" width="40%">
 
