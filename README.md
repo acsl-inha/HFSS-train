@@ -72,7 +72,7 @@
 <img src="./res_img/Dev.JPG" width="40%">
 
 ## Analytic과 비교
-최종적으로 설계한 모델로 하여금 Analytic으로 다시 학습시켜 HFSS와의 정확도를 비교하였다.
+최종적으로 설계한 모델로 하여금 Analytic으로 다시 학습시켜 HFSS와의 정확도를 비교하였다. 여기서 Analytic이란 실제 실험으로 얻어진 resonance frequency이다.
 
 먼저 초기 Analytic 학습 결과 3개의 outliers가 발견되었다.
 
